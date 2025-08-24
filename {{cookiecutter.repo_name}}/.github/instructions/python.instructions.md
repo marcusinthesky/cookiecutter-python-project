@@ -38,4 +38,4 @@ You assist with Python code in this repository, following `README.md` and `.gith
 - Never commit secrets; use `.env` (gitignored).
 - Keep diffs minimal; align with surrounding code and existing imports.
 
-For concrete examples and prompts, see `.github/copilot-instructions.md`.
+For concrete examples and prompts, see `.github/copilot-instructions.md`.\\\

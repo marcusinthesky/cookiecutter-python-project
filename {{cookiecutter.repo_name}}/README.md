@@ -6,17 +6,11 @@ This project contains three folders:
 ├── pyproject.toml # project configuration file with `uv` dependencies
 ├── _quarto.yml # a quarto and quartodoc configuration file
 ├── README.md # this README
+├── scripts # uv scripts with self-contained dependencies which use typer
 ├── src
 ├── tests
 └── uv.lock # uv lock file
 ```
-
-## `src`
-This project was created by running:
-```
-uv init --package
-```
-this created our python `src` directory, as well as `pyproject.toml`.
 
 ## `docs`
 For documentation:
@@ -35,5 +29,18 @@ docs
 ```
 These documents serve as a comprehensive resource for understanding the project, its structure, and its implementation details. They are intended for both internal use, providing valuable insights into the project's objectives and methodologies.  Additionally, they can be useful for onboarding new team members or for stakeholders who need to familiarize themselves with the project. By maintaining clear and organized documentation, we can ensure that knowledge is preserved and easily accessible throughout the project's lifecycle.
 
+## `scripts`
+`uv` defines a way to specify [scripts and their dependencies in a project](https://docs.astral.sh/uv/guides/scripts/#declaring-script-dependencies). In this folder, we use [`typer`](https://typer.tiangolo.com/) to create command-line interfaces for our scripts.
 
+## `src`
+This project was created by running:
+```
+uv init --package
+```
+this created our python `src` directory, as well as `pyproject.toml`.
 
+## `tests`
+This project uses `pytest` for testing. The tests are located in the `tests` directory and can be run with:
+```
+pytest
+```
