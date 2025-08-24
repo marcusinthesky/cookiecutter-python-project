@@ -1,0 +1,85 @@
+fail_fast: true
+# https://docs.getdbt.com/blog/enforcing-rules-pre-commit-dbt
+repos:
+  # Git
+  # we want to add branch protection
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0 # Use the ref you want to point at
+    hooks:
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: name-tests-test
+      - id: sort-simple-yaml
+      - id: trailing-whitespace
+      - id: check-added-large-files
+      - id: check-ast
+      - id: no-commit-to-branch
+        args: [ --branch, main ]
+  # yaml
+  - repo: https://github.com/google/yamlfmt
+    rev: v0.17.2
+    hooks:
+      - id: yamlfmt
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.7
+    hooks:
+      - id: actionlint
+        files: ^.github/workflows/
+  # Docker
+  - repo: https://github.com/hadolint/hadolint
+    rev: "v2.13.1-beta"
+    hooks:
+      - id: hadolint-docker
+        args: [--ignore, DL3042, --ignore, DL3006, --failure-threshold, warning]
+  # uv
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.8.8
+    hooks:
+      - id: uv-lock
+        name: uv-lock (check lockfile consistency)
+        args: ["--check"]
+        pass_filenames: false
+      - id: uv-sync
+        name: uv-sync (sync environment after checkout)
+        args: ["--locked"]
+        pass_filenames: false
+        stages: [post-checkout, post-merge, post-rewrite]
+  # ruff
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.8
+    hooks:
+      # Run the formatter (separate from lint)
+      - id: ruff-format
+      # Run the linter.
+      - id: ruff-check
+        args: ["--fix", "--verbose"]
+  # codespell
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        files: ^.*\.(py|md|qmd|rst|sh|yml)$
+        args: ["--ignore-words", ".codespellignore", "-L", "ot"]
+  # Run tests with uv-managed environment (on push to keep commits fast)
+  - repo: local
+    hooks:
+      - id: pytest-uv
+        name: Run tests (uv)
+        entry: uv run pytest -q
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
+      - id: ty-uv
+        name: Type check (ty via uv)
+        entry: uv run ty
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
+      - id: quartodoc-uv
+        name: Generate documentation (quartodoc via uv)
+        entry: uv run quartodoc build
+        language: system
+        pass_filenames: false
+        stages: [pre-push]

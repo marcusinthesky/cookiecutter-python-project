@@ -1,0 +1,28 @@
+project:
+  title: "{{cookiecutter.repo_name}}"
+  type: website
+  render:
+    - docs/*/*.{qmd}
+    - README.md
+# we create a navbar:
+website:
+  title: "{{cookiecutter.repo_name}}"
+  description: ""
+  page-navigation: true
+  navbar:
+    title: "{{cookiecutter.repo_name}}"
+    left:
+      - text: "Home"
+        href: README.html
+      - text: "Reference"
+        href: docs/reference/index.html
+      - text: "Research"
+        href: docs/research/index.html
+      - text: "Notebooks"
+        href: docs/notebooks/index.html
+metadata-files:
+  - docs/reference/_sidebar.yml
+quartodoc:
+  package: {{cookiecutter.repo_name}}
+  style: pkgdown
+  dir: docs/reference

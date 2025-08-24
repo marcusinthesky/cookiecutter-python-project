@@ -1,0 +1,4 @@
+---
+title: Notebooks
+---
+Notebooks are used to explore data in an interactive manner. They allow for a combination of code execution, visualization, and narrative text, making them a powerful tool for research and analysis. We use `marimo` to facilitate this process, storing checkpointed notebooks in the `__marimo__` folder.  

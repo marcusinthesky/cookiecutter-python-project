@@ -1,0 +1,98 @@
+[project]
+name = "{{cookiecutter.repo_name}}"
+version = "0.1.0"
+description = "{{cookiecutter.project_description}}"
+readme = "README.md"
+authors = [{ name = "{{cookiecutter.author}}", email = "{{cookiecutter.email}}" }]
+requires-python = ">=3.12"
+
+dev = [
+    "ruff",
+    "ty",
+    "quartodoc",
+    "pytest",
+    "pydoclint",
+    "tryceratops",
+    "isort",
+]
+
+dependencies = [
+    "cookiecutter>=2.6.0",
+    "duckdb",
+    "ipykernel",
+    "marimo",
+    "matplotlib",
+    "nbclient",
+    "nbformat",
+    "pandas",
+    "pyyaml",
+    "requests",
+    "tqdm",
+]
+
+[project.scripts]
+cookiecutter-python-project = "cookiecutter_python_project:main"
+
+[build-system]
+requires = ["uv_build>=0.8.6,<0.9.0"]
+build-backend = "uv_build"
+
+{%- else -%}
+[tool.ty.environment]
+python = "./.venv"
+python-version = "3.9"
+{%- endif %}
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 120
+fix = true
+
+[tool.ruff.lint]
+select = [
+    # flake8-2020
+    "YTT",
+    # flake8-bandit
+    "S",
+    # flake8-bugbear
+    "B",
+    # flake8-builtins
+    "A",
+    # flake8-comprehensions
+    "C4",
+    # flake8-debugger
+    "T10",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+    # pycodestyle
+    "E", "W",
+    # pyflakes
+    "F",
+    # pygrep-hooks
+    "PGH",
+    # pyupgrade
+    "UP",
+    # ruff
+    "RUF",
+    # tryceratops
+    "TRY",
+    # pydoclint
+    "DOC",
+]
+ignore = [
+    # LineTooLong
+    "E501",
+    # DoNotAssignLambda
+    "E731",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]
+
+[tool.ruff.format]
+preview = true

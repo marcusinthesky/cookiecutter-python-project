@@ -1,0 +1,9 @@
+---
+title: "Research"
+bibliography: references.bib
+---
+Research is used for:  
+- Literature Reviews,  
+- Market Research, and  
+- System Specifications  
+These documents can include citations, figures, and formatted text to present information clearly and professionally. `Quarto` is used to create and manage these documents, providing a cohesive framework for research output, allowing for the use of mermaid diagrams, python code, and templating features, and allowing flexible rendering as html, pdf, docx, reveal.js, or latex documents. 
